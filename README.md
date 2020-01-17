@@ -19,38 +19,38 @@ npm run build --report
 ```
 
 # dev install dependencies
-cnpm install axios --save
-cnpm install element-ui --save (npm i element-ui -S)
-cnpm install sass-loader node-sass --save-dev (npm i sass-loader node-sass -D)
+cnpm install axios --save<br>
+cnpm install element-ui --save (npm i element-ui -S)<br>
+cnpm install sass-loader node-sass --save-dev (npm i sass-loader node-sass -D)<br>
 
 
 
 
 # main.js
 
-import ElementUI from 'element-ui'
-import axios from 'axios'
-import 'element-ui/lib/theme-chalk/index.css'
-import 'font-awesome/css/font-awesome.min.css'
+import ElementUI from 'element-ui'<br>
+import axios from 'axios'<br>
+import 'element-ui/lib/theme-chalk/index.css'<br>
+import 'font-awesome/css/font-awesome.min.css'<br>
 
 
-Vue.use(ElementUI)
-Vue.prototype.axios = axios
-axios.defaults.withCredentials=true
-Vue.config.productionTip = false
+Vue.use(ElementUI)<br>
+Vue.prototype.axios = axios<br>
+axios.defaults.withCredentials=true<br>
+Vue.config.productionTip = false<br>
 
-new Vue({
-  el: '#app',
-  router,
-  render: h => h(App)
-})
+new Vue({<br>
+  el: '#app',<br>
+  router,<br>
+  render: h => h(App)<br>
+})<br>
 
 
 # dev-tools
 
-git clone -b master https://github.com/vuejs/vue-devtools.git
+git clone -b master https://github.com/vuejs/vue-devtools.git<br>
 
-cnpm install
+cnpm install<br>
 
 # 注意浏览器console不输出时查看是否有filter
 
