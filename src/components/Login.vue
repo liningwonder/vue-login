@@ -25,8 +25,7 @@
           </el-col>
         </el-form-item>
         <el-form-item style="width:100%;">
-          <el-button type="primary" style="width:48%;" @click.native.prevent="reset">重 置</el-button>
-          <el-button type="primary" style="width:48%;" @click.native.prevent="login" :loading="loading">登 录</el-button>
+          <el-button type="primary" style="width:100%;" @click.native.prevent="login" :loading="loading">登 录 / 注 册</el-button>
         </el-form-item>
     </el-form>
 </template>
@@ -49,6 +48,9 @@ export default {
         ],
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' }
+        ],
+        captcha: [
+          {required: true, message: '请输入验证码', trigger: 'blur'}
         ]
       },
       checked: true
@@ -58,7 +60,7 @@ export default {
     login() {
       this.loading = true
       let userInfo = { account:this.loginForm.account, password:this.loginForm.password, captcha:this.loginForm.captcha }
-      console.log("login test")
+      //console.log("login test")
       this.axios.post('http://localhost:8001/login', {account:this.loginForm.account,captcha:this.loginForm.captcha,password:this.loginForm.password}).then(response => {
         //console.log('response' + response)
         //console.log('body' + response.body)
@@ -72,20 +74,24 @@ export default {
         }
         //this.$router.push('/')
       }).catch(error => {
-        console.log(error);
-        this.$message({message: 'unknown error', type: 'error'})
+        //console.log(error);
+        this.$message({message: '登录错误', type: 'error'})
       })
       this.loading = false
     },
     refreshCaptcha() {
-      console.log("axios test")
+      //console.log("axios test")
       this.axios.get('http://localhost:8001/captcha.jpg', {responseType: 'arraybuffer'}).then(response => {
-        console.log(response)
-        this.loginForm.src = 'data:image/png;base64,' + btoa(new Uint8Array(response.data).reduce((data,byte) => data + String.fromCharCode(byte), ''))
+        //console.log(response)
+        if (response != null) {
+          this.loginForm.src = 'data:image/png;base64,' + btoa(new Uint8Array(response.data).reduce((data,byte) => data + String.fromCharCode(byte), ''))
+        } else {
+          //alert(response.data.msg)
+          this.$message({message: response.data.msg, type: 'error'})
+        }
+      }).catch(error => {
+        this.$message({message: '请求验证码请求验证码图片错误', type: 'error'})
       })
-    },
-    reset() {
-      this.$refs['loginForm'].resetFields()
     }
   },
   mounted() {
